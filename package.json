@@ -1,24 +1,40 @@
 {
-  "name": "hackathones",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luciaSeo02/hackathones.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/luciaSeo02/hackathones/issues"
-  },
-  "homepage": "https://github.com/luciaSeo02/hackathones#readme",
-  "dependencies": {
-    "express": "^5.1.0"
-  }
-
+    "type": "module",
+    "name": "hackathones",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "initDb": "node ./src/database/initDb.js"
+    },
+    "repository": {
+        "url": "git+https://github.com/luciaSeo02/hackathones.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/luciaSeo02/hackathones/issues"
+    },
+    "homepage": "https://github.com/luciaSeo02/hackathones#readme",
+    "dependencies": {
+        "@getbrevo/brevo": "^2.2.0",
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "express-fileupload": "^1.5.1",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.14.1",
+        "nodemailer": "^7.0.3",
+        "randomstring": "^1.3.1",
+        "sharp": "^0.34.2",
+        "uuid": "^11.1.0"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0",
+        "nodemon": "^3.1.10"
+    }
 }
