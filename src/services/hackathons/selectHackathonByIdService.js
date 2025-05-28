@@ -2,18 +2,23 @@
 
 import getPool from '../../database/getPool.js';
 
-const selectHackathonByIdService = async () => {
+const selectHackathonByIdService = async (id) => {
 
     const pool = await getPool();
 
-    const [] = await pool.query(
+    const [hackathons] = await pool.query(
         `
-        `,
-        []
-    );
+            SELECT
+            h.id, h.name, h.description, h.modality, h.location, h.onlineUrl,
+            h.startDate, h.endDate, t.name AS topic
+            FROM hackathons h
+            JOIN topics t ON h.topicId = t.id
+            WHERE h.id = ?
+        `
+    ,[id]);
 
-    return;
+    return hackathons[0];
+};
 
-}
 
 export default selectHackathonByIdService;

@@ -8,10 +8,10 @@ const listHackathonsController = async (req, res, next) => {
 
         const hackathons = await selectHackathonsService();
 
-        res.send({
+        res.status(200).json({
             status: 'ok',
             data: hackathons
-        })
+        });
 
     } catch (error) {
         next(error);

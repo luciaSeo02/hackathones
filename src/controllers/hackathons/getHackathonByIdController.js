@@ -9,10 +9,10 @@ const getHackathonByIdController = async (req, res, next) => {
         const hackathon = await selectHackathonByIdService(req.params.id);
 
         if(!hackathon) {
-            return res.status(404).send({ error: 'Ups! No hemos encontrado ningún Hackathon!' });
+            return res.status(404).json({ error: 'Ups! No hemos encontrado ningún Hackathon!' });
         }
 
-        res.send({
+        res.status(200).json({
             status: 'ok',
             data: hackathon
         })
