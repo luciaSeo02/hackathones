@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-// import generateErrorsUtils from '../utils/generateErrorsUtils.js';
+import generateErrorsUtils from '../utils/generateErrorsUtils.js';
 
 import {
     MYSQL_HOST,
@@ -41,10 +41,10 @@ const getPool = async () => {
         return await pool;
     } catch (error) {
         console.log(error);
-        // throw generateErrorsUtils(
-        //     'Error conectado a MySQL o no se encuentra la base de datos',
-        //     400
-        // );
+        throw generateErrorsUtils(
+            'Error conectado a MySQL o no se encuentra la base de datos',
+            400
+        );
     }
 };
 
