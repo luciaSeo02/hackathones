@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import generateErrorsUtils from '../../utils/generateErrorsUtils.js';
+import generateErrorsUtils from '../../utils/generateErrorUtils.js';
 import selectUserByEmailService from '../../services/users/selectUserByEmailService.js';
 
 const loginUserController = async (req, res, next) => {

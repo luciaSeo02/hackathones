@@ -1,5 +1,5 @@
 import randomstring from 'randomstring';
-import generateErrorsUtils from "../../utils/generateErrorsUtils.js";
+import generateErrorsUtils from '../../utils/generateErrorUtils.js';
 import insertUserService from '../../services/users/insertUserService.js';
 
 const registerUserController = async (req, res, next) => {

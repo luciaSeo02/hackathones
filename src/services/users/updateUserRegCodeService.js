@@ -1,5 +1,5 @@
 import getPool from "../../database/getPool.js";
-import generateErrorsUtils from "../../utils/generateErrorsUtils.js";
+import generateErrorsUtils from "../../utils/generateErrorUtils.js";
 
 const updateUserRegCodeService = async (registrationCode) => {
     

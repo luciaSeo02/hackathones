@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import generateErrorsUtils from '../utils/generateErrorsUtils.js';
+import generateErrorUtils from '../utils/generateErrorUtils.js';
 
 import {
     MYSQL_HOST,

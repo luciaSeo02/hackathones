@@ -10,7 +10,7 @@ apiInstance.setApiKey(
     SMTP_API_KEY
 );
 
-const sendMailUtils = async (email, subject, html) => {
+const sendMailUtils = async (email, subject, body) => {
     try{
 
         const sendSmtpMail = new brevo.SendSmtpEmail();
@@ -20,11 +20,11 @@ const sendMailUtils = async (email, subject, html) => {
             { email: email,}
         ];
 
-        sendSmtpMail.htmlContent = html;
+        sendSmtpMail.htmlContent = body;
         
         sendSmtpMail.sender = {
             name: 'Equipo de Hackathones',
-            email: SMTP_USER 
+            email: "ismpascu43@gmail.com" 
         }
 
         await apiInstance.sendTransacEmail(sendSmtpMail);
