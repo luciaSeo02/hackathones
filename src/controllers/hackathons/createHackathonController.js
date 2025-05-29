@@ -3,12 +3,6 @@ import insertHackathonService from '../../services/hackathons/insertHackathonSer
 const createHackathonController = async (req, res, next) => {
     
     try {
-        
-        const userRole = req.headers['dev'];
-
-        if(req.headers[userRole] !== 'admin'){
-            return res.status(403).json({ error: 'Necesitas permisos de administrador para crear un hackathon'});
-        }
 
         const id = await insertHackathonService(req.body);
 
