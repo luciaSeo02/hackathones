@@ -1,11 +1,20 @@
 import express from 'express';
 
-import userRouter from './userRouter.js';
+
+
+
+import userRouter from './usersRouter.js';
 import hackathonsRouter from './hackathonsRouter.js';
+
 
 const router = express.Router();
 
 router.use(userRouter);
+
+router.use(entriesRouter);
+
 router.use(hackathonsRouter);
 
+
 export default router;
+
