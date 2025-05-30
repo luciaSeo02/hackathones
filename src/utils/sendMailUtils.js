@@ -1,7 +1,7 @@
 import brevo from '@getbrevo/brevo';
 import 'dotenv/config';
 
-const {SMTP_API_KEY, SMTP_USER} = process.env;
+const {SMTP_API_KEY} = process.env;
 
 const apiInstance = new brevo.TransactionalEmailsApi();
 

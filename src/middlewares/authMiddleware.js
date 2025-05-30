@@ -21,7 +21,8 @@ const authMiddleware = (req, res, next) => {
         }
 
         req.user = info;
-        
+        next();
+
         } catch (error) {
             next(error);
     }

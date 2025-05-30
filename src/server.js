@@ -11,13 +11,18 @@ import notFoundError from './errors/notFoundError.js';
 
 const server = express();
 
-server.use(cors());
-server.use(express.json());
 server.use(morgan('dev'));
 
+//cors
+server.use(cors());
+
+// parseo del body(JSON)
+server.use(express.json());
+
+// Upload 
 server.use(fileUpload());
 
-// Gestión directorios estáticos
+// Directorios estáticos
 const estaticDir = path.join(process.cwd(), '.src/uploads');
 server.use('/uploads', express.static(estaticDir));
 
