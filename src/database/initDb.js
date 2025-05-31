@@ -147,6 +147,18 @@ const initDb = async () => {
             `
         );
 
+        await pool.query(
+            `
+                CREATE TABLE IF NOT EXISTS contact_messages (
+                    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                    name VARCHAR(100) NOT NULL,
+                    email VARCHAR(100) NOT NULL,
+                    message TEXT NOT NULL,
+                    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            `
+        );
+
         console.log('Tablas creadas');
 
         console.log('Insertando datos fijos');
