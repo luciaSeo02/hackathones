@@ -1,4 +1,4 @@
-import deleteInscription from '../services/deleteInscription.js';
+import deleteInscription from '../../services/inscriptions/deleteInscription.js';
 
 const cancelInscription = async (req, res, next) => {
     try {
