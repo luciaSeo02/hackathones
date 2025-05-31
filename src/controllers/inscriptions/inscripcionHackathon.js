@@ -1,6 +1,6 @@
 // codigo para hacer un inscripcion
 
-import insertNewInscription from '../services/addInscription.js';
+import insertNewInscription from '../../services/inscriptions/addInscription.js'
 
 const newInscription = async (req, res, next) => {
     try {

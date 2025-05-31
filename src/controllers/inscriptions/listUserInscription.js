@@ -1,4 +1,4 @@
-import getInscriptionUser from '../../services/inscriptions/getInscriptionUser';
+import getInscriptionUser from '../../services/inscriptions/getInscriptionUser.js';
 
 const listInscriptionUser = async (req, res, next) => {
     try {
