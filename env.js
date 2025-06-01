@@ -7,6 +7,7 @@ export const {
     MYSQL_DATABASE,
     MYSQL_PORT,
     ADMIN_PASSWORD,
+    HOST,
     PORT,
     SECRET,
     SMTP_USER,
