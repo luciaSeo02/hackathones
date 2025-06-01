@@ -5,7 +5,8 @@ import {
     loginUserController,
     validateUserController,
     infoUserController,
-    editUserController
+    editUserController,
+    editAvatarController
 } from '../controllers/users/index.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
@@ -20,6 +21,8 @@ router.post('/users/login', loginUserController);
 router.get('/users', authMiddleware, infoUserController);
 
 router.put('/users/edit', authMiddleware, editUserController);
+
+router.put('/users/avatar', authMiddleware, editAvatarController);
 
 
 

@@ -3,6 +3,7 @@ import validateUserController from './validateUserController.js';
 import loginUserController from './loginUserController.js';
 import infoUserController from './infoUserController.js';
 import editUserController from './editUserController.js';
+import editAvatarController from './editAvatarController.js';
 
 
 
@@ -11,6 +12,7 @@ export {
     loginUserController,
     validateUserController,
     infoUserController,
-    editUserController
+    editUserController,
+    editAvatarController
 }
 
