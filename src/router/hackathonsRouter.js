@@ -3,26 +3,26 @@ import express from 'express';
 import {
     createHackathonController,
     listHackathonsController,
-    getHackathonByIdController
+    getHackathonByIdController,
 } from '../controllers/hackathons/index.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
-
-import validateBody  from '../middlewares/validateBody.js';
-import hackathonSchema from '../validators/hackathonSchema.js';
+import deleteHackathonController from '../controllers/hackathons/deleteHackathonController.js';
+import editHackathonController from '../controllers/hackathons/editHackathonController.js';
 
 const router = express.Router();
 
 router.get('/hackathons', listHackathonsController);
 router.get('/hackathons/:id', getHackathonByIdController);
+router.delete('/:id', isAdminMiddleware, deleteHackathonController);
+router.put('/:id', isAdminMiddleware, editHackathonController);
 
-router.post('/hackathons/create', 
+router.post(
+    '/hackathons/create',
     createHackathonController,
     authMiddleware,
-    isAdminMiddleware,
-    validateBody(hackathonSchema)
+    isAdminMiddleware
 );
-
 
 export default router;
