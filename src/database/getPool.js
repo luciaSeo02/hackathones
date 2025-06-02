@@ -41,7 +41,7 @@ const getPool = async () => {
         return await pool;
     } catch (error) {
         console.log(error);
-        throw generateErrorsUtils(
+        throw generateErrorUtils(
             'Error conectado a MySQL o no se encuentra la base de datos',
             400
         );
