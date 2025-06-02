@@ -14,15 +14,15 @@ import editHackathonController from '../controllers/hackathons/editHackathonCont
 const router = express.Router();
 
 router.get('/hackathons', listHackathonsController);
-router.get('/hackathons/:id', getHackathonByIdController);
+router.get('/hackathons/:id', authMiddleware, getHackathonByIdController);
 router.delete('/:id', isAdminMiddleware, deleteHackathonController);
 router.put('/:id', isAdminMiddleware, editHackathonController);
 
 router.post(
     '/hackathons/create',
-    createHackathonController,
     authMiddleware,
-    isAdminMiddleware
+    isAdminMiddleware,
+    createHackathonController
 );
 
 export default router;
