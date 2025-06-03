@@ -8,13 +8,13 @@ const addRating = async ({ userId, hackathonId, rating }) => {
     const pool = await getPool();
 
     const [hackathons] = await pool.query(
-        'SELECT date FROM hackathons WHERE id = ?',
+        'SELECT endDate FROM hackathons WHERE id = ?',
         [hackathonId]
     );
     if (hackathons.length === 0) {
         throw new Error('El hackathon no existe');
     }
-    const hackathonDate = new Date(hackathons[0].date);
+    const hackathonDate = new Date(hackathons[0].endDate);
     const now = new Date();
     if (now < hackathonDate) {
         throw new Error(

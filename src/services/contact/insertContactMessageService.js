@@ -1,5 +1,6 @@
 import getPool from '../../database/getPool.js';
 import sendMailUtils from '../../utils/sendMailUtils.js';
+import { CONTACT_EMAIL } from '../../../env.js';
 
 const insertContactMessageService = async ({ name, email, message }) => {
     const pool = await getPool();
@@ -13,7 +14,7 @@ const insertContactMessageService = async ({ name, email, message }) => {
     );
 
     await sendMailUtils(
-        'luciaseo20@gmail.com',
+        CONTACT_EMAIL,
         'Nuevo mensaje desde la página de contacto',
         `<p>Mensaje de ${name} (${email}):</p><p>${message}</p>`
     );

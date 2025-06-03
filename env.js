@@ -7,6 +7,7 @@ export const {
     MYSQL_DATABASE,
     MYSQL_PORT,
     ADMIN_PASSWORD,
+    CONTACT_EMAIL,
     HOST,
     PORT,
     SECRET,
@@ -15,5 +16,5 @@ export const {
     SMTP_HOST,
     SMTP_PASS,
     SMTP_PORT,
-    UPLOAD_DIR
+    UPLOAD_DIR,
 } = process.env;
