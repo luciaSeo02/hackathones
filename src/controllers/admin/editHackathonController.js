@@ -1,4 +1,4 @@
-import editHackathonService from '../../services/hackathons/editHackathonService.js';
+import editHackathonService from '../../services/admin/editHackathonService.js';
 
 const editHackathonController = async (req, res, next) => {
     try {

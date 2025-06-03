@@ -8,21 +8,23 @@ import {
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
-import deleteHackathonController from '../controllers/hackathons/deleteHackathonController.js';
-import editHackathonController from '../controllers/hackathons/editHackathonController.js';
+import deleteHackathonController from '../controllers/admin/deleteHackathonController.js';
+import editHackathonController from '../controllers/admin/editHackathonController.js';
+import attachmentAdminHackathonController from '../controllers/admin/attachmentAdminHackathonController.js';
 
 const router = express.Router();
 
 router.get('/hackathons', listHackathonsController);
-router.get('/hackathons/:id', authMiddleware, getHackathonByIdController);
-router.delete('/:id', isAdminMiddleware, deleteHackathonController);
-router.put('/:id', isAdminMiddleware, editHackathonController);
+router.get('/hackathons/:id', getHackathonByIdController);
+router.delete('/:id',authMiddleware, isAdminMiddleware, deleteHackathonController);
+router.put('/:id', authMiddleware, isAdminMiddleware,editHackathonController);
+router.post('/hackathons/:id/attachments', authMiddleware, isAdminMiddleware, attachmentAdminHackathonController);
 
 router.post(
     '/hackathons/create',
+    createHackathonController,
     authMiddleware,
-    isAdminMiddleware,
-    createHackathonController
+    isAdminMiddleware
 );
 
 export default router;

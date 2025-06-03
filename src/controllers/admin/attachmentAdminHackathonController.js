@@ -1,18 +1,17 @@
-import attachmentAdminHackathonService from '../../services/hackathons/attachmentAdminHackathonService.js';
+import attachmentAdminHackathonService from '../../services/admin/attachmentAdminHackathonService.js';
 
 const attachmentAdminHackathonController = async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        const { nombre, url, descripcion } = req.body;
-
-        await attachmentAdminHackathonService(id, { nombre, url, descripcion });
+        const { fileUrl, fileType } = req.body;
+        
+        await attachmentAdminHackathonService(id, { fileUrl, fileType });
 
         res.status(200).send({
             status: 'ok',
             message: 'Attachment añadido correctamente',
         });
-
     } catch (error) {
         next(error);
     }
