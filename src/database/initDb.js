@@ -21,6 +21,7 @@ const initDb = async () => {
                 CREATE TABLE IF NOT EXISTS topics (
                     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
                     name VARCHAR(50) NOT NULL,
+                    description TEXT,
                     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
             `
@@ -165,8 +166,17 @@ const initDb = async () => {
 
         await pool.query(
             `
-                INSERT INTO topics (name) VALUES
-                ('Inteligencia Artificial'), ('Desarrollador de Software'), ('Desarrollo Web'), ('Data Science'), ('Ciberseguridad'), ('Realidad Virtual'), ('Robótica'), ('Hardware'), ('Gaming'), ('Lan Parties');
+                INSERT INTO topics (name, description) VALUES
+                ('Inteligencia Artificial', 'Descripcion de Inteligencia Artificial'),
+                ('Desarrollador de Software', 'Descripcion de Desarrollador de Software'),
+                ('Desarrollo Web', 'Descripcion de Desarrollo Web'),
+                ('Data Science', 'Descripcion de Data Science'),
+                ('Ciberseguridad', 'Descripcion de Ciberseguridad'),
+                ('Realidad Virtual', 'Descripcion de Realidad Virtual'),
+                ('Robótica', 'Descripcion de Robótica'),
+                ('Hardware', 'Descripcion de Hardware'),
+                ('Gaming', 'Descripcion de Gaming'),
+                ('LAN Parties', 'Descripcion de LAN Parties');
             `
         );
 
