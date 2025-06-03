@@ -1,4 +1,4 @@
-import deleteHackhatonService from '../../services/hackathons/deleteHackathonService.js';
+import deleteHackhatonService from '../../services/admin/deleteHackathonService.js';
 
 const deleteHackathonController = async (req, res, next) => {
     try {

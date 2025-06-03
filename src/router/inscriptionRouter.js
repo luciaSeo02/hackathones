@@ -27,6 +27,7 @@ router.get('/inscriptions', authMiddleware, listInscriptionUser);
 
 router.post(
     '/hackathons/:hackathonId/classification',
+    authMiddleware,
     isAdminMiddleware,
     publishRanking
 );
