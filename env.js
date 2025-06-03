@@ -15,4 +15,5 @@ export const {
     SMTP_HOST,
     SMTP_PASS,
     SMTP_PORT,
+    UPLOAD_DIR
 } = process.env;

@@ -3,7 +3,7 @@ import { savePhotoUtils, deletePhotoUtils } from "../../utils/photoUtils.js";
 import updateUserAvatarService from "../../services/users/updateUserAvatarService.js";
 
 
-const editAvatarController = async (req, res) => {
+const editAvatarController = async (req, res, next) => {
     try {
 
         const { avatar } = req.files;
