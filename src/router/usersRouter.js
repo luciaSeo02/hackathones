@@ -6,7 +6,10 @@ import {
     validateUserController,
     infoUserController,
     editUserController,
-    editAvatarController
+    editAvatarController,
+    RecoverPassController,
+    editPasswordController
+    
 } from '../controllers/users/index.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
@@ -24,6 +27,8 @@ router.put('/users/edit', authMiddleware, editUserController);
 
 router.put('/users/avatar', authMiddleware, editAvatarController);
 
+router.post('/users/password/recover', RecoverPassController);
 
+router.put('/users/password/edit', authMiddleware, editPasswordController);
 
 export default router;
