@@ -12,18 +12,22 @@ const updateUserService = async (
 ) => {
     const pool = await getPool();
 
-   
-    const [currentUser] = await pool.query(
+    const [users] = await pool.query(
         'SELECT email, username, firstName, lastName, avatar FROM users WHERE id = ?',
         [id]
     );
 
+    if (!users || users.length === 0) throw new Error('Usuario no encontrado');
+    
+
+    const currentUser = users[0];
+
     const updateData = {
-        email: email || currentUser[0].email,
-        username: username || currentUser[0].username,
-        firstName: firstName || currentUser[0].firstName,
-        lastName: lastName || currentUser[0].lastName,
-        avatar: avatar || currentUser[0].avatar,
+        email: email || currentUser.email,
+        username: username || currentUser.username,
+        firstName: firstName || currentUser.firstName,
+        lastName: lastName || currentUser.lastName,
+        avatar: avatar || currentUser.avatar,
     };
 
     if (password) {
