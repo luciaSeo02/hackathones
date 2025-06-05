@@ -32,6 +32,28 @@ export const savePhotoUtils = async (img, width) => {
     }
 };
 
+export const saveHackathonAttachment = async (file, hackathonId) => {
+    try {
+        const uploadDir = path.join(process.cwd(), `./src/${UPLOAD_DIR}/hackathons/${hackathonId}`);
+
+        try {
+            await fs.access(uploadDir);
+        } catch {
+            await fs.mkdir(uploadDir, { recursive: true });
+        }
+
+        const ext = path.extname(file.name) || '.dat';
+        const fileName = `${uuidv4()}${ext}`;
+        const filePath = path.join(uploadDir, fileName);
+
+        await fs.writeFile(filePath, file.data);
+
+        return `uploads/hackathons/${hackathonId}/${fileName}`;
+    } catch (error) {
+        throw generateErrorsUtils('Error al guardar el archivo', 500);
+    }
+};
+
 export const deletePhotoUtils = async (imgName) => {
     try {
         const imgPath = path.join(
