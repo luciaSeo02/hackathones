@@ -16,7 +16,6 @@ export {
     editUserController,
     editAvatarController,
     RecoverPassController,
-    editPasswordController, 
-    changePasswordController
-}
-
+    editPasswordController,
+    changePasswordController,
+};

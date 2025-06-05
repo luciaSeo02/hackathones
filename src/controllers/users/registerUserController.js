@@ -4,10 +4,13 @@ import insertUserService from '../../services/users/insertUserService.js';
 
 const registerUserController = async (req, res, next) => {
     try {
-        
-        const {email, password, username} = req.body;
+        const { email, password, username } = req.body;
 
-        if(!email || !password || !username) throw generateErrorsUtils('Se esperaba email, username y contraseña', 400);
+        if (!email || !password || !username)
+            throw generateErrorsUtils(
+                'Se esperaba email, username y contraseña',
+                400
+            );
 
         const registrationCode = randomstring.generate(15);
 
@@ -15,12 +18,12 @@ const registerUserController = async (req, res, next) => {
 
         res.send({
             status: 'ok',
-            message: 'Usuario creado correctamente. Verifique su cuenta mediante el email recibido'
+            message:
+                'Usuario creado correctamente. Verifique su cuenta mediante el email recibido',
         });
-
     } catch (error) {
         next(error);
     }
-}
+};
 
 export default registerUserController;

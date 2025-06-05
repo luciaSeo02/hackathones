@@ -15,7 +15,6 @@ const authMiddleware = (req, res, next) => {
         let info;
 
         try {
-    
             const splittedHeader = authorization.split(' ');
             const token = splittedHeader[1];
 

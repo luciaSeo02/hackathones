@@ -6,12 +6,11 @@ const listTechnologiesController = async (req, res, next) => {
 
         res.send({
             status: 'ok',
-            data: technologies
+            data: technologies,
         });
-        
     } catch (error) {
         next(error);
     }
-}
+};
 
 export default listTechnologiesController;

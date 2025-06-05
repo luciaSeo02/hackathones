@@ -9,7 +9,7 @@ import {
     editAvatarController,
     RecoverPassController,
     editPasswordController,
-    changePasswordController
+    changePasswordController,
 } from '../controllers/users/index.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';

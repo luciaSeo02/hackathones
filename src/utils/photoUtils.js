@@ -7,17 +7,20 @@ import generateErrorsUtils from '../utils/generateErrorUtils.js';
 
 export const savePhotoUtils = async (img, width) => {
     try {
-        const uploadDir = path.join(process.cwd(), `./src/${UPLOAD_DIR}/avatar`);
+        const uploadDir = path.join(
+            process.cwd(),
+            `./src/${UPLOAD_DIR}/avatar`
+        );
 
         try {
             await fs.access(uploadDir);
         } catch (error) {
-            await fs.mkdir(uploadDir,{ recursive: true });
+            await fs.mkdir(uploadDir, { recursive: true });
         }
 
         const imgSharp = sharp(img.data);
 
-        imgSharp.resize(width).toFormat('jpg',{ quality: 100 });
+        imgSharp.resize(width).toFormat('jpg', { quality: 100 });
 
         const imgName = `${uuidv4()}.jpg`;
 
@@ -34,7 +37,10 @@ export const savePhotoUtils = async (img, width) => {
 
 export const saveHackathonAttachment = async (file, hackathonId) => {
     try {
-        const uploadDir = path.join(process.cwd(), `./src/${UPLOAD_DIR}/hackathons/${hackathonId}`);
+        const uploadDir = path.join(
+            process.cwd(),
+            `./src/${UPLOAD_DIR}/hackathons/${hackathonId}`
+        );
 
         try {
             await fs.access(uploadDir);

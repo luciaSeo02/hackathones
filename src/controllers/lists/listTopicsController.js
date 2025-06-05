@@ -6,12 +6,11 @@ const listTopicsController = async (req, res, next) => {
 
         res.send({
             status: 'ok',
-            data: topics
+            data: topics,
         });
-        
     } catch (error) {
         next(error);
     }
-}
+};
 
 export default listTopicsController;

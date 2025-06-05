@@ -1,7 +1,6 @@
-import getPool from "../../database/getPool.js";
+import getPool from '../../database/getPool.js';
 
 const selectUserByEmailService = async (email) => {
-
     const pool = await getPool();
 
     const [user] = await pool.query(
@@ -14,7 +13,6 @@ const selectUserByEmailService = async (email) => {
     );
 
     return user[0];
-
-}
+};
 
 export default selectUserByEmailService;

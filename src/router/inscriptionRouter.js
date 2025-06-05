@@ -34,6 +34,4 @@ router.post(
 
 router.post('/hackathons/:hackathonId/rating', authMiddleware, rateHackathon);
 
-
-
 export default router;
