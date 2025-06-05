@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import getPool from '../../database/getPool.js';
 
 const updateUserService = async (
@@ -7,7 +6,6 @@ const updateUserService = async (
     firstName,
     lastName,
     avatar,
-    password,
     id
 ) => {
     const pool = await getPool();
@@ -18,7 +16,6 @@ const updateUserService = async (
     );
 
     if (!users || users.length === 0) throw new Error('Usuario no encontrado');
-    
 
     const currentUser = users[0];
 
@@ -30,41 +27,21 @@ const updateUserService = async (
         avatar: avatar || currentUser.avatar,
     };
 
-    if (password) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query(
-            `
-                UPDATE users
-                SET email=?, username=?, firstName=?, lastName=?, avatar=?, password=?
-                WHERE id=?
-            `,
-            [
-                updateData.email,
-                updateData.username,
-                updateData.firstName,
-                updateData.lastName,
-                updateData.avatar,
-                hashedPassword,
-                id,
-            ]
-        );
-    } else {
-        await pool.query(
-            `
-                UPDATE users
-                SET email=?, username=?, firstName=?, lastName=?, avatar=?
-                WHERE id=?
-            `,
-            [
-                updateData.email,
-                updateData.username,
-                updateData.firstName,
-                updateData.lastName,
-                updateData.avatar,
-                id,
-            ]
-        );
-    }
+    await pool.query(
+        `
+            UPDATE users
+            SET email=?, username=?, firstName=?, lastName=?, avatar=?
+            WHERE id=?
+        `,
+        [
+            updateData.email,
+            updateData.username,
+            updateData.firstName,
+            updateData.lastName,
+            updateData.avatar,
+            id,
+        ]
+    );
 };
 
 export default updateUserService;
