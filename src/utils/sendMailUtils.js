@@ -1,5 +1,6 @@
 import brevo from '@getbrevo/brevo';
 import 'dotenv/config';
+import generateErrorUtils from './generateErrorUtils.js';
 
 const {SMTP_API_KEY} = process.env;
 
@@ -24,7 +25,7 @@ const sendMailUtils = async (email, subject, body) => {
         
         sendSmtpMail.sender = {
             name: 'Equipo de Hackathones',
-            email: "ismpascu43@gmail.com" 
+            email: "hackathones2025@gmail.com"
         }
 
         await apiInstance.sendTransacEmail(sendSmtpMail);
