@@ -1,9 +1,7 @@
-import selectHackathonsService from '../../services/hackathons/selectHackathonsService.js';
 import selectHackathonsWithFiltersService from '../../services/hackathons/selectHackathonsWithFiltersService.js';
 
 const listHackathonsController = async (req, res, next) => {
     try {
-        // const hackathons = await selectHackathonsService();
 
         const { topic, modality, startDate, endDate, technologies, orderBy } =
             req.query;
