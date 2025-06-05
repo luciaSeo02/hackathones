@@ -1,6 +1,6 @@
 import getPool from '../../database/getPool.js';
 
-const addRating = async ({ userId, hackathonId, rating }) => {
+const addRatingService = async ({ userId, hackathonId, rating }) => {
     if (!userId || !hackathonId || !rating || rating < 1 || rating > 5) {
         throw new Error('Datos inválidos para calificar el hackathon');
     }
@@ -46,4 +46,4 @@ const addRating = async ({ userId, hackathonId, rating }) => {
     );
 };
 
-export default addRating;
+export default addRatingService;
