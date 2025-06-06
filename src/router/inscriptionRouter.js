@@ -9,6 +9,10 @@ import rateHackathon from '../controllers/inscriptions/rateHackathon.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
 
+import validateBody from '../middlewares/validateBody.js';
+import publishRankingSchema from '../validators/publishRankingSchema.js';
+import rateHackathonSchema from '../validators/rateHackathonSchema.js';
+
 const router = express.Router();
 
 router.post(
@@ -29,9 +33,15 @@ router.post(
     '/hackathons/:hackathonId/classification',
     authMiddleware,
     isAdminMiddleware,
+    validateBody(publishRankingSchema),
     publishRanking
 );
 
-router.post('/hackathons/:hackathonId/rating', authMiddleware, rateHackathon);
+router.post(
+    '/hackathons/:hackathonId/rating',
+    authMiddleware,
+    validateBody(rateHackathonSchema),
+    rateHackathon
+);
 
 export default router;

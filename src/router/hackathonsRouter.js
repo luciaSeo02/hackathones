@@ -11,6 +11,6 @@ import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
 const router = express.Router();
 
 router.get('/hackathons', listHackathonsController);
-router.get('/hackathons/:id', getHackathonByIdController);
+router.get('/hackathons/:id', authMiddleware, getHackathonByIdController);
 
 export default router;
