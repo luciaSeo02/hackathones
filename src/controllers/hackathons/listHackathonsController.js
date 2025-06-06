@@ -2,7 +2,6 @@ import selectHackathonsWithFiltersService from '../../services/hackathons/select
 
 const listHackathonsController = async (req, res, next) => {
     try {
-
         const { topic, modality, startDate, endDate, technologies, orderBy } =
             req.query;
 

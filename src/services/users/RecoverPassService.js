@@ -1,8 +1,7 @@
-import getPool from "../../database/getPool.js";
-import sendMailUtils from "../../utils/sendMailUtils.js";
+import getPool from '../../database/getPool.js';
+import sendMailUtils from '../../utils/sendMailUtils.js';
 
 const RecoverPassService = async (email, recoverPassCode) => {
-
     const pool = await getPool();
 
     await pool.query(
@@ -33,6 +32,6 @@ const RecoverPassService = async (email, recoverPassCode) => {
     `;
 
     await sendMailUtils(email, emailSubject, emailBody);
-}
+};
 
 export default RecoverPassService;

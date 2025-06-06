@@ -11,7 +11,6 @@ const hackathonSchema = Joi.object({
     topicId: Joi.number().integer().required(),
 });
 
-
 export default hackathonSchema;
 
 // Esquema que valida los datos de un hackathon, asegurando que:

@@ -6,25 +6,31 @@ const authMiddleware = (req, res, next) => {
         const { authorization } = req.headers;
 
         if (!authorization) {
-
-            throw generateErrorUtils('No se ha proporcionado un token de autorización', 401);
+            throw generateErrorUtils(
+                'No se ha proporcionado un token de autorización',
+                401
+            );
         }
 
         let info;
 
         try {
+            const splittedHeader = authorization.split(' ');
+            const token = splittedHeader[1];
 
-            info = jwt.verify(authorization, process.env.SECRET);
-
+            info = jwt.verify(token, process.env.SECRET);
         } catch (error) {
-            throw generateErrorUtils('El token de autorización no es válido',401);
+            throw generateErrorUtils(
+                'El token de autorización no es válido',
+                401,
+                error
+            );
         }
 
         req.user = info;
         next();
-
-        } catch (error) {
-            next(error);
+    } catch (error) {
+        next(error);
     }
 };
 

@@ -11,6 +11,6 @@ const selectTopicsService = async () => {
     );
 
     return topics;
-}
+};
 
 export default selectTopicsService;

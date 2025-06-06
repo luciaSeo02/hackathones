@@ -3,7 +3,6 @@
 import getPool from '../../database/getPool.js';
 
 const selectHackathonByIdService = async (id) => {
-
     const pool = await getPool();
 
     const [hackathons] = await pool.query(
@@ -14,11 +13,11 @@ const selectHackathonByIdService = async (id) => {
             FROM hackathons h
             JOIN topics t ON h.topicId = t.id
             WHERE h.id = ?
-        `
-    ,[id]);
+        `,
+        [id]
+    );
 
     return hackathons[0];
 };
-
 
 export default selectHackathonByIdService;

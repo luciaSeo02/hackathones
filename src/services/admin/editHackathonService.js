@@ -3,40 +3,41 @@ import getPool from '../../database/getPool.js';
 const editHackathonService = async (id, data) => {
     const pool = await getPool();
 
-    const { name, modality, location, onlineUrl, startDate, endDate, topicId, technologies} = data;
+    const {
+        name,
+        modality,
+        location,
+        onlineUrl,
+        startDate,
+        endDate,
+        topicId,
+        technologies,
+    } = data;
 
     await pool.query(
-
         `
         UPDATE hackathons SET name = ?, modality = ?, location = ?, onlineUrl = ?, startDate = ?, endDate = ?, topicId = ? WHERE id = ?
         `,
 
         [name, modality, location, onlineUrl, startDate, endDate, topicId, id]
-
     );
 
     if (Array.isArray(technologies)) {
-
         await pool.query(
-
             `
             DELETE FROM hackathon_technologies WHERE hackathonId = ?
             `,
 
             [id]
-
         );
 
         for (const techId of technologies) {
-
             await pool.query(
-
                 `
                 INSERT INTO hackathon_technologies (hackathonId, technologyId) VALUES (?, ?)
                 `,
 
                 [id, techId]
-
             );
         }
     }

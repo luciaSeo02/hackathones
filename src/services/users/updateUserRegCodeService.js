@@ -1,8 +1,7 @@
-import getPool from "../../database/getPool.js";
-import generateErrorsUtils from "../../utils/generateErrorUtils.js";
+import getPool from '../../database/getPool.js';
+import generateErrorsUtils from '../../utils/generateErrorUtils.js';
 
 const updateUserRegCodeService = async (registrationCode) => {
-    
     const pool = await getPool();
 
     const [user] = await pool.query(
@@ -12,7 +11,8 @@ const updateUserRegCodeService = async (registrationCode) => {
         [registrationCode]
     );
 
-    if(!user.length) throw generateErrorsUtils('No existe el codigo de registro', 400);
+    if (!user.length)
+        throw generateErrorsUtils('No existe el codigo de registro', 400);
 
     await pool.query(
         `
@@ -22,6 +22,6 @@ const updateUserRegCodeService = async (registrationCode) => {
         `,
         [registrationCode]
     );
-}
+};
 
 export default updateUserRegCodeService;

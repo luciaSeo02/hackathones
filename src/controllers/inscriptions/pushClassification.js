@@ -7,7 +7,12 @@ const publishRanking = async (req, res, next) => {
         const { userId, position } = req.body;
         const { hackathonId } = req.params;
 
-        if (!userId || !position || typeof position !== 'number' || position < 1) {
+        if (
+            !userId ||
+            !position ||
+            typeof position !== 'number' ||
+            position < 1
+        ) {
             return next(
                 generateErrorUtils(
                     'Debes indicar un usuario válido y una posición positiva',

@@ -3,8 +3,7 @@ import updateUserService from '../../services/users/updateUserService.js';
 const editUserController = async (req, res, next) => {
     try {
         const { id } = req.user;
-        const { email, username,firstName, lastName, avatar } =
-            req.body || {};
+        const { email, username, firstName, lastName, avatar } = req.body || {};
 
         await updateUserService(
             email,

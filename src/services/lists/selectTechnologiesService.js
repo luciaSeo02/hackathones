@@ -11,6 +11,6 @@ const selectTechnologiesService = async () => {
     );
 
     return technologies;
-}
+};
 
 export default selectTechnologiesService;

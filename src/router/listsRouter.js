@@ -2,7 +2,7 @@ import express from 'express';
 
 import {
     listTopicsController,
-    listTechnologiesController
+    listTechnologiesController,
 } from '../controllers/lists/index.js';
 
 const router = express.Router();

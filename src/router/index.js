@@ -7,7 +7,6 @@ import listsRouter from './listsRouter.js';
 import contactRouter from './contactRouter.js';
 import adminRouter from './adminRouter.js';
 
-
 const router = express.Router();
 
 router.use(adminRouter);

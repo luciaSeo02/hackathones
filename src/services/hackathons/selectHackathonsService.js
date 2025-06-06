@@ -1,7 +1,6 @@
 import getPool from '../../database/getPool.js';
 
 const selectHackathonsService = async () => {
-    
     const pool = await getPool();
 
     const [hackathons] = await pool.query(
@@ -16,8 +15,6 @@ const selectHackathonsService = async () => {
     );
 
     return hackathons;
-
 };
-
 
 export default selectHackathonsService;

@@ -1,10 +1,14 @@
-import getPool from "../../database/getPool.js";
-import generateErrorsUtils from "../../utils/generateErrorUtils.js";
+import getPool from '../../database/getPool.js';
+import generateErrorsUtils from '../../utils/generateErrorUtils.js';
 import bcrypt from 'bcrypt';
-import sendMailUtils from "../../utils/sendMailUtils.js";
+import sendMailUtils from '../../utils/sendMailUtils.js';
 
-const insertUserService = async (email, password, registrationCode, username) => {
-
+const insertUserService = async (
+    email,
+    password,
+    registrationCode,
+    username
+) => {
     const pool = await getPool();
 
     const [user] = await pool.query(
@@ -14,8 +18,9 @@ const insertUserService = async (email, password, registrationCode, username) =>
         [email]
     );
 
-    if(user.length) throw generateErrorsUtils('El email ya se encuentra registrado.', 409);
-        
+    if (user.length)
+        throw generateErrorsUtils('El email ya se encuentra registrado.', 409);
+
     const emailSubject = 'Activa tu cuenta de Hackathones';
 
     const emailBody = `
@@ -37,9 +42,8 @@ const insertUserService = async (email, password, registrationCode, username) =>
     `;
 
     await sendMailUtils(email, emailSubject, emailBody);
-    
 
-    const passwordHassed = await bcrypt.hash(password,10);
+    const passwordHassed = await bcrypt.hash(password, 10);
 
     await pool.query(
         `
@@ -49,6 +53,6 @@ const insertUserService = async (email, password, registrationCode, username) =>
         `,
         [email, passwordHassed, registrationCode, username]
     );
-}
+};
 
 export default insertUserService;
