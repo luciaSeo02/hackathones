@@ -5,8 +5,28 @@ import sharp from 'sharp';
 import { v4 as uuidv4 } from 'uuid';
 import generateErrorsUtils from '../utils/generateErrorUtils.js';
 
+
+export const validateImage = (file) => {
+
+    const types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
+    
+    if (!types.includes(file.mimetype)) {
+        throw generateErrorsUtils('Tipo de archivo no permitido. Solo se permiten imágenes JPG, PNG, WebP', 400);
+    }
+    
+    const extension = path.extname(file.name).toLowerCase();
+
+    if (!extensions.includes(extension)) {
+        throw generateErrorsUtils('Extensión no válida. Solo se permiten: .jpg, .jpeg, .png, .webp', 400);
+    }
+};
+
 export const savePhotoUtils = async (img, width) => {
     try {
+
+        validateImage(img);
+
         const uploadDir = path.join(
             process.cwd(),
             `./src/${UPLOAD_DIR}/avatar`
@@ -37,6 +57,8 @@ export const savePhotoUtils = async (img, width) => {
 
 export const saveHackathonAttachment = async (file, hackathonId) => {
     try {
+        validateImage(img);
+
         const uploadDir = path.join(
             process.cwd(),
             `./src/${UPLOAD_DIR}/hackathons/${hackathonId}`
