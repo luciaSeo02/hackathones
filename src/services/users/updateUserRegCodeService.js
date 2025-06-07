@@ -12,7 +12,7 @@ const updateUserRegCodeService = async (registrationCode) => {
     );
 
     if (!user.length)
-        throw generateErrorsUtils('No existe el codigo de registro', 400);
+        throw generateErrorsUtils('Este usuario ya se encuentra activo', 400);
 
     await pool.query(
         `
