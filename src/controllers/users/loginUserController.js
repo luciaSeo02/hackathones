@@ -30,7 +30,7 @@ const loginUserController = async (req, res, next) => {
         };
 
         const token = jwt.sign(tokenInfo, process.env.SECRET, {
-            expiresIn: '3d',
+            expiresIn: '3h',
         });
 
         res.send({
