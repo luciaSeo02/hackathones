@@ -7,7 +7,7 @@ const attachmentAdminHackathonService = async (
     const pool = await getPool();
 
     await pool.query(
-        'INSERT INTO hackathon_attachments (fileUrl, fileType, hackathonId) VALUES (?, ?, ?)',
+        `INSERT INTO hackathon_attachments (fileUrl, fileType, hackathonId) VALUES (?, ?, ?)`,
 
         [fileUrl, fileType, hackathonId]
     );

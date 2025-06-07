@@ -1,5 +1,4 @@
 import express from 'express';
-import fileUpload from 'express-fileupload';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
@@ -7,12 +6,13 @@ import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
 import validateBody from '../middlewares/validateBody.js';
 import hackathonSchema from '../validators/hackathonSchema.js';
 import editHackathonSchema from '../validators/editHackathonSchema.js';
+import attachmentSchema from '../validators/attachmentHackathonSchema.js';
 
 import createHackathonController from '../controllers/hackathons/createHackathonController.js';
 import deleteHackathonController from '../controllers/admin/deleteHackathonController.js';
 import editHackathonController from '../controllers/admin/editHackathonController.js';
 import attachmentAdminHackathonController from '../controllers/admin/attachmentAdminHackathonController.js';
-import attachmentSchema from '../validators/attachmentHackathonSchema.js';
+import deleteAttachmentController from '../controllers/admin/deleteAttachmentController.js';
 
 const router = express.Router();
 
@@ -43,5 +43,11 @@ router.post(
     validateBody(attachmentSchema),
     attachmentAdminHackathonController
 );
+router.delete(
+    '/hackathons/:id/attachments/:fileId',
+    authMiddleware,
+    isAdminMiddleware,
+    deleteAttachmentController
+)
 
 export default router;

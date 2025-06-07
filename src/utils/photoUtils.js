@@ -57,7 +57,7 @@ export const savePhotoUtils = async (img, width) => {
 
 export const saveHackathonAttachment = async (file, hackathonId) => {
     try {
-        validateImage(img);
+        validateImage(file);
 
         const uploadDir = path.join(
             process.cwd(),
@@ -86,7 +86,7 @@ export const deletePhotoUtils = async (imgName) => {
     try {
         const imgPath = path.join(
             process.cwd(),
-            `./src/${UPLOAD_DIR}`,
+            `./src/${UPLOAD_DIR}/avatar`,
             imgName
         );
 
@@ -102,3 +102,22 @@ export const deletePhotoUtils = async (imgName) => {
         throw generateErrorsUtils('Error al eliminar imagen', 500);
     }
 };
+
+export const deleteHackathonAttachment = async (fileName) => {
+    try {
+        const filePath = path.join(process.cwd(), './src', fileName);
+
+        try {
+            await fs.access(filePath);
+
+        } catch (error) {
+            return;
+        }
+
+        await fs.unlink(filePath);
+        
+    } catch (error) {
+        console.log(error);
+        throw generateErrorsUtils('Error al eliminar archivo', 500);
+    }
+}

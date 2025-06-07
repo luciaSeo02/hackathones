@@ -18,7 +18,7 @@ const attachmentAdminHackathonController = async (req, res, next) => {
 
         res.status(200).send({
             status: 'ok',
-            message: 'Attachment añadido correctamente',
+            message: 'Archivo añadido correctamente',
         });
     } catch (error) {
         next(error);
