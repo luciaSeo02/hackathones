@@ -1,4 +1,5 @@
 import getPool from '../../database/getPool.js';
+import generateErrorUtils from '../../utils/generateErrorUtils.js';
 
 const editHackathonService = async (id, data) => {
     const pool = await getPool();
@@ -10,13 +11,20 @@ const editHackathonService = async (id, data) => {
         onlineUrl,
         startDate,
         endDate,
-        topicId,
+        topicName,
         technologies,
     } = data;
 
+    const [[topic]] = await pool.query(`SELECT id FROM topics WHERE name = ?`, [
+        topicName,
+    ]);
+
+    if (!topic) throw generateErrorUtils('Tema no encontrado', 400);
+    const topicId = topic.id;
+
     await pool.query(
         `
-        UPDATE hackathons SET name = ?, modality = ?, location = ?, onlineUrl = ?, startDate = ?, endDate = ?, topicId = ? WHERE id = ?
+            UPDATE hackathons SET name = ?, modality = ?, location = ?, onlineUrl = ?, startDate = ?, endDate = ?, topicId = ? WHERE id = ?
         `,
 
         [name, modality, location, onlineUrl, startDate, endDate, topicId, id]
