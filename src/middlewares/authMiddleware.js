@@ -15,11 +15,15 @@ const authMiddleware = (req, res, next) => {
             );
         }
 
+        const token = authorization.startsWith('Bearer ')
+            ? authorization.slice(7)
+            : authorization;
+
         let info;
 
         try {
 
-            info = jwt.verify(authorization, process.env.SECRET);
+            info = jwt.verify(token, process.env.SECRET);
 
         } catch (error) {
 

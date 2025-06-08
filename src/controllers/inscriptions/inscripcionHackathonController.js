@@ -7,7 +7,7 @@ const newInscription = async (req, res, next) => {
 
         await insertNewInscription({ userId, hackathonId });
 
-        res.status(201).json({ message: 'te has inscripto correctamente ;)' });
+        res.status(201).json({ message: 'Te has inscrito correctamente ;)' });
     } catch (err) {
         next(err);
     }
