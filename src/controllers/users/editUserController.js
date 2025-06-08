@@ -4,20 +4,13 @@ import generateErrorUtils from '../../utils/generateErrorUtils.js';
 const editUserController = async (req, res, next) => {
     try {
         const { id } = req.user;
-        const { email, username, firstName, lastName, avatar } = req.body || {};
+        const { email, username, firstName, lastName } = req.body || {};
 
         if (req.user.role === 'admin') {
             throw generateErrorUtils('No puedes realizar esta acción', 403);
         }
 
-        await updateUserService(
-            email,
-            username,
-            firstName,
-            lastName,
-            avatar,
-            id
-        );
+        await updateUserService(email, username, firstName, lastName, id);
 
         res.send({
             status: 'ok',
