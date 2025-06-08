@@ -39,6 +39,14 @@ const changePasswordService = async (userId, currentPassword, newPassword) => {
         throw generateErrorsUtils('La contraseña actual es incorrecta', 401);
     }
 
+    const isSame = await bcrypt.compare(newPassword, user[0].password);
+    if (isSame) {
+        throw generateErrorsUtils(
+            'La contraseña tiene que ser distinta a la anterior',
+            400
+        );
+    }
+
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     await pool.query(

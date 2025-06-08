@@ -19,6 +19,7 @@ const loginUserSchema = Joi.object({
             'string.pattern.base':
                 'La contraseña debe incluir al menos una mayúscula, una minúscula, un número y un carácter especial',
         }),
+    rememberMe: Joi.boolean().optional(),
 });
 
 export default loginUserSchema;

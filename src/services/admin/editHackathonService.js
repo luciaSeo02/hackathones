@@ -12,7 +12,7 @@ const editHackathonService = async (id, data) => {
         startDate,
         endDate,
         topicName,
-        technologies,
+        technologyNames,
     } = data;
 
     const [[topic]] = await pool.query(`SELECT id FROM topics WHERE name = ?`, [
@@ -30,7 +30,7 @@ const editHackathonService = async (id, data) => {
         [name, modality, location, onlineUrl, startDate, endDate, topicId, id]
     );
 
-    if (Array.isArray(technologies)) {
+    if (Array.isArray(technologyNames)) {
         await pool.query(
             `
             DELETE FROM hackathon_technologies WHERE hackathonId = ?
@@ -39,13 +39,21 @@ const editHackathonService = async (id, data) => {
             [id]
         );
 
-        for (const techId of technologies) {
+        for (const technologyName of technologyNames) {
+            const [[technology]] = await pool.query(
+                `SELECT id FROM technologies WHERE name = ?`,
+                [technologyName]
+            );
+
+            if (!technology)
+                throw generateErrorUtils('Tecnología no encontrada', 400);
+
             await pool.query(
                 `
                 INSERT INTO hackathon_technologies (hackathonId, technologyId) VALUES (?, ?)
                 `,
 
-                [id, techId]
+                [id, technology.id]
             );
         }
     }

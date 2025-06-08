@@ -1,17 +1,10 @@
 import getPool from '../../database/getPool.js';
 
-const updateUserService = async (
-    email,
-    username,
-    firstName,
-    lastName,
-    avatar,
-    id
-) => {
+const updateUserService = async (email, username, firstName, lastName, id) => {
     const pool = await getPool();
 
     const [users] = await pool.query(
-        'SELECT email, username, firstName, lastName, avatar FROM users WHERE id = ?',
+        'SELECT email, username, firstName, lastName FROM users WHERE id = ?',
         [id]
     );
 
@@ -24,13 +17,12 @@ const updateUserService = async (
         username: username || currentUser.username,
         firstName: firstName || currentUser.firstName,
         lastName: lastName || currentUser.lastName,
-        avatar: avatar || currentUser.avatar,
     };
 
     await pool.query(
         `
             UPDATE users
-            SET email=?, username=?, firstName=?, lastName=?, avatar=?
+            SET email=?, username=?, firstName=?, lastName=?
             WHERE id=?
         `,
         [
@@ -38,7 +30,6 @@ const updateUserService = async (
             updateData.username,
             updateData.firstName,
             updateData.lastName,
-            updateData.avatar,
             id,
         ]
     );

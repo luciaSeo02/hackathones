@@ -5,26 +5,56 @@ import sharp from 'sharp';
 import { v4 as uuidv4 } from 'uuid';
 import generateErrorsUtils from '../utils/generateErrorUtils.js';
 
-
 export const validateImage = (file) => {
-
     const types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
-    
+
     if (!types.includes(file.mimetype)) {
-        throw generateErrorsUtils('Tipo de archivo no permitido. Solo se permiten imágenes JPG, PNG, WebP', 400);
+        throw generateErrorsUtils(
+            'Tipo de archivo no permitido. Solo se permiten imágenes JPG, PNG, WebP',
+            400
+        );
     }
-    
+
     const extension = path.extname(file.name).toLowerCase();
 
     if (!extensions.includes(extension)) {
-        throw generateErrorsUtils('Extensión no válida. Solo se permiten: .jpg, .jpeg, .png, .webp', 400);
+        throw generateErrorsUtils(
+            'Extensión no válida. Solo se permiten: .jpg, .jpeg, .png, .webp',
+            400
+        );
+    }
+};
+
+export const validateDocument = (file) => {
+    const types = [
+        'application/pdf',
+        'application/zip',
+        'application/x-zip-compressed',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+    const extensions = ['.pdf', '.zip', '.doc', '.docx'];
+
+    if (!types.includes(file.mimetype)) {
+        throw generateErrorsUtils(
+            'Tipo de archivo no permitido. Solo se permiten documentos PDF, ZIP, DOC, DOCX',
+            400
+        );
+    }
+
+    const extension = path.extname(file.name).toLowerCase();
+
+    if (!extensions.includes(extension)) {
+        throw generateErrorsUtils(
+            'Extensión no válida. Solo se permiten: .pdf, .zip, .doc, .docx',
+            400
+        );
     }
 };
 
 export const savePhotoUtils = async (img, width) => {
     try {
-
         validateImage(img);
 
         const uploadDir = path.join(
@@ -51,13 +81,22 @@ export const savePhotoUtils = async (img, width) => {
         return imgName;
     } catch (error) {
         console.log(error);
+
+        if (error.statusCode) throw error;
+
         throw generateErrorsUtils('Error al guardar imagen', 500);
     }
 };
 
-export const saveHackathonAttachment = async (file, hackathonId) => {
+export const saveHackathonAttachment = async (file, hackathonId, fileType) => {
     try {
-        validateImage(file);
+        if (fileType === 'image') {
+            validateImage(file);
+        } else if (fileType === 'document') {
+            validateDocument(file);
+        } else {
+            throw generateErrorsUtils('Tipo de archivo no válido', 400);
+        }
 
         const uploadDir = path.join(
             process.cwd(),
@@ -78,6 +117,7 @@ export const saveHackathonAttachment = async (file, hackathonId) => {
 
         return `uploads/hackathons/${hackathonId}/${fileName}`;
     } catch (error) {
+        console.error('Error en saveHackathonAttachment:', error);
         throw generateErrorsUtils('Error al guardar el archivo', 500);
     }
 };
@@ -109,15 +149,13 @@ export const deleteHackathonAttachment = async (fileName) => {
 
         try {
             await fs.access(filePath);
-
         } catch (error) {
             return;
         }
 
         await fs.unlink(filePath);
-        
     } catch (error) {
         console.log(error);
         throw generateErrorsUtils('Error al eliminar archivo', 500);
     }
-}
+};

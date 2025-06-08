@@ -6,15 +6,20 @@ const attachmentAdminHackathonController = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { fileType } = req.body;
-        const { attachment } = req.files;
+        let { attachment } = req.files;
 
         if (!attachment) {
             throw generateErrorUtils('No se ha subido ningún archivo', 400);
         }
 
-        const fileUrl = await saveHackathonAttachment(attachment, id);
+        if (!Array.isArray(attachment)) {
+            attachment = [attachment];
+        }
 
-        await attachmentAdminHackathonService(id, { fileUrl, fileType });
+        for (const file of attachment) {
+            const fileUrl = await saveHackathonAttachment(file, id, fileType);
+            await attachmentAdminHackathonService(id, { fileUrl, fileType });
+        }
 
         res.status(200).send({
             status: 'ok',

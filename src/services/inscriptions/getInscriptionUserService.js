@@ -5,10 +5,12 @@ async function getInscriptionUser(userId) {
     const [rows] = await pool.query(
         `
             SELECT h.id, h.name, h.startDate, h.endDate, h.location, h.onlineUrl,
-                CASE WHEN h.endDate < NOW() THEN 'past' ELSE 'upcoming'
-            END AS status
-            FROM hackathon_user_registrations r 
-            JOIN hackathons h ON r.hackathonId = h.id 
+            CASE WHEN h.endDate < NOW() THEN 'past' ELSE 'upcoming' END AS status,
+            ranking.position
+            FROM hackathon_user_registrations r
+            JOIN hackathons h ON r.hackathonId = h.id
+            LEFT JOIN hackathon_user_rankings ranking
+            ON ranking.userId = r.userId AND ranking.hackathonId = r.hackathonId
             WHERE r.userId = ?
             ORDER BY h.startDate DESC
         `,

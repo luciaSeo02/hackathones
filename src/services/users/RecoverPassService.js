@@ -20,7 +20,7 @@ const RecoverPassService = async (email, recoverPassCode) => {
             <body>
                 <h2>Recuperación de contraseña para ${email}</h2>
                 <p>
-                    Se ha solicitado la recuperación de la contraseña enhackathones.<br>
+                    Se ha solicitado la recuperación de la contraseña en Hackathones.<br>
                     Utiliza el siguiente código de recuperación para crear una nueva.<br>
                     Código de recuperación: ${recoverPassCode}<br>
                 </p>

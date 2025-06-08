@@ -1,5 +1,3 @@
-// este bloque de código es provisional a la espera de la BBDD
-
 import selectHackathonByIdService from '../../services/hackathons/selectHackathonByIdService.js';
 
 const getHackathonByIdController = async (req, res, next) => {

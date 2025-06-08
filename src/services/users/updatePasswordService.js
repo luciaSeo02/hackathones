@@ -15,6 +15,14 @@ const updatePasswordService = async (email, recoverPassCode, newPassword) => {
         );
     }
 
+    const isSame = await bcrypt.compare(newPassword, user.password);
+    if (isSame) {
+        throw generateErrorsUtils(
+            'La nueva contraseña no puede ser igual a la anterior',
+            400
+        );
+    }
+
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
     await pool.query(

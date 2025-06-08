@@ -5,7 +5,7 @@ import selectUserByEmailService from '../../services/users/selectUserByEmailServ
 
 const loginUserController = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, rememberMe } = req.body;
 
         if (!email || !password)
             throw generateErrorsUtils('Se esperaba email y password', 400);
@@ -29,14 +29,17 @@ const loginUserController = async (req, res, next) => {
             role: user.role,
         };
 
+        const expiresIn = rememberMe ? '30d' : '3h';
+
         const token = jwt.sign(tokenInfo, process.env.SECRET, {
-            expiresIn: '3h',
+            expiresIn,
         });
 
         res.send({
             status: 'ok',
             data: {
                 token,
+                expiresIn,
             },
         });
     } catch (error) {
