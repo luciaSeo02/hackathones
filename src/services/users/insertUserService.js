@@ -32,7 +32,7 @@ const insertUserService = async (
                     debe hacer click en el siguiente enlace:
                 </p>
                 <p>
-                    <a href="http://localhost:3001/users/validate/${registrationCode}">
+                    <a href="http://localhost:5173/users/validate/${registrationCode}">
                         Activar Cuenta
                     </a>
                     Hecho por el equipo de Hackathones.
