@@ -12,6 +12,7 @@ import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
 import validateBody from '../middlewares/validateBody.js';
 import publishRankingSchema from '../validators/publishRankingSchema.js';
 import rateHackathonSchema from '../validators/rateHackathonSchema.js';
+import getClassification from '../services/inscriptions/getClassification.js'
 
 const router = express.Router();
 
@@ -44,4 +45,8 @@ router.post(
     rateHackathon
 );
 
+router.get('/hackathons/:hackathonId/classification/view', getClassification);
+
 export default router;
+
+

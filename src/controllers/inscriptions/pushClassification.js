@@ -4,14 +4,23 @@ import getPool from '../../database/getPool.js';
 
 const publishRanking = async (req, res, next) => {
     try {
-        const { userId, position } = req.body;
+        const { ranking } = req.body;
         const { hackathonId } = req.params;
 
+        if (!Array.isArray(ranking) || ranking.length === 0) {
+            return next(generateErrorUtils('Debes enviar al menos un ranking', 400));
+        }
+
+        const pool = await getPool();
+
+        for (const { userId, position } of ranking) {
         if (
             !userId ||
             !position ||
             typeof position !== 'number' ||
             position < 1
+          
+        
         ) {
             return next(
                 generateErrorUtils(
@@ -21,7 +30,7 @@ const publishRanking = async (req, res, next) => {
             );
         }
 
-        const pool = await getPool();
+
         const [rows] = await pool.query(
             'SELECT id FROM hackathon_user_registrations WHERE userId = ? AND hackathonId = ?',
             [userId, hackathonId]
@@ -40,6 +49,7 @@ const publishRanking = async (req, res, next) => {
             hackathonId: Number(hackathonId),
             position,
         });
+    }
 
         res.status(201).json({
             message: 'Clasificación publicada correctamente',
