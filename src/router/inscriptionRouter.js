@@ -5,6 +5,7 @@ import cancelInscription from '../controllers/inscriptions/cancelationInscriptio
 import listInscriptionUser from '../controllers/inscriptions/listUserInscriptionController.js';
 import publishRanking from '../controllers/inscriptions/pushClassification.js';
 import rateHackathon from '../controllers/inscriptions/rateHackathon.js';
+import getPeopleInscriptionsToMyHackathonsController from '../controllers/inscriptions/getPeopleInscriptionsToMyHackathonsController.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
@@ -46,6 +47,13 @@ router.post(
 );
 
 router.get('/hackathons/:hackathonId/classification/view', getClassification);
+
+router.get(
+  '/inscriptions-to-my-hackathons',
+  authMiddleware,
+  isAdminMiddleware,
+  getPeopleInscriptionsToMyHackathonsController
+);
 
 export default router;
 

@@ -69,7 +69,9 @@ const initDb = async () => {
                     startDate TIMESTAMP NOT NULL,
                     endDate TIMESTAMP NOT NULL,
                     topicId INT NOT NULL,
+                    creatorId INT NOT NULL,
                     FOREIGN KEY (topicId) REFERENCES topics(id) ON DELETE CASCADE,
+                    FOREIGN KEY (creatorId) REFERENCES users(id) ON DELETE CASCADE,
                     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
                     modifiedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )
