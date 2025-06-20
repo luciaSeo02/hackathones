@@ -11,7 +11,7 @@ const selectHackathonsWithFiltersService = async ({
     const pool = await getPool();
 
     let query = `
-        SELECT DISTINCT h.id, h.name, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technologies
+        SELECT DISTINCT h.id, h.name, h.description, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technologies
         FROM hackathons h
         JOIN topics t ON h.topicId = t.id
         LEFT JOIN hackathon_technologies ht ON ht.hackathonId = h.id
@@ -49,7 +49,7 @@ const selectHackathonsWithFiltersService = async ({
     }
 
     query += `
-        GROUP BY h.id, h.name, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name
+        GROUP BY h.id, h.name, h.description, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name
     `;
 
     if (orderBy === 'startDate' || orderBy === 'topic') {

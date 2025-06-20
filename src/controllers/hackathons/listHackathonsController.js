@@ -1,4 +1,6 @@
 import selectHackathonsWithFiltersService from '../../services/hackathons/selectHackathonsWithFiltersService.js';
+import { HOST, PORT } from '../../../env.js';
+import selectAttachmentsByHackathonIdService from '../../services/hackathons/selectAttachmentsByHackathonIdService.js';
 
 const listHackathonsController = async (req, res, next) => {
     try {
@@ -13,6 +15,17 @@ const listHackathonsController = async (req, res, next) => {
             technologies,
             orderBy,
         });
+
+        for (const hackathon of hackathons) {
+            const attachments = await selectAttachmentsByHackathonIdService(
+                hackathon.id
+            );
+
+            hackathon.attachments = attachments.map((file) => ({
+                url: `${HOST}:${PORT}/${file.fileUrl}`,
+                type: file.fileType,
+            }));
+        }
 
         if (hackathons.length === 0) {
             return res.status(200).json({
