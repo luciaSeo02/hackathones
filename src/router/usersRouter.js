@@ -60,7 +60,6 @@ router.post(
 router.put(
     '/users/password/edit',
     validateBody(editPasswordSchema),
-    authMiddleware,
     editPasswordController
 );
 
