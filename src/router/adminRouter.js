@@ -41,7 +41,7 @@ router.post(
     '/hackathons/:id/attachments',
     authMiddleware,
     isAdminMiddleware,
-    validateBody(attachmentSchema),
+    // validateBody(attachmentSchema),
     attachmentAdminHackathonController
 );
 router.delete(
