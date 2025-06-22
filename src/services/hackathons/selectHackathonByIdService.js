@@ -1,4 +1,6 @@
 import getPool from '../../database/getPool.js';
+import selectAttachmentsByHackathonIdService from './selectAttachmentsByHackathonIdService.js';
+import { HOST, PORT } from '../../../env.js';
 
 const selectHackathonByIdService = async (id) => {
     const pool = await getPool();
@@ -17,7 +19,17 @@ const selectHackathonByIdService = async (id) => {
         [id]
     );
 
-    return hackathons[0];
+    const hackathon = hackathons[0];
+
+    if (!hackathon) return null;
+
+    const attachments = await selectAttachmentsByHackathonIdService(id);
+    hackathon.attachments = attachments.map((file) => ({
+        url: `${HOST}:${PORT}/${file.fileUrl}`,
+        type: file.fileType,
+    }));
+
+    return hackathon;
 };
 
 export default selectHackathonByIdService;
