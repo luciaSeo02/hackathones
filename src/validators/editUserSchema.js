@@ -11,11 +11,11 @@ const editUserSchema = Joi.object({
             'El nombre de usuario no puede tener más de 30 caracteres',
     }),
 
-    firstName: Joi.string().max(50).messages({
+    firstName: Joi.string().max(50).allow('').messages({
         'string.max': 'El nombre no puede tener más de 50 caracteres',
     }),
 
-    lastName: Joi.string().max(50).messages({
+    lastName: Joi.string().max(50).allow('').messages({
         'string.max': 'El apellido no puede tener más de 50 caracteres',
     }),
 });
