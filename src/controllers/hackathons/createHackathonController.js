@@ -2,8 +2,8 @@ import insertHackathonService from '../../services/hackathons/insertHackathonSer
 
 const createHackathonController = async (req, res, next) => {
     try {
-        const creatorId = req.user.id;
-        const id = await insertHackathonService({ ...req.body, creatorId });
+        // const creatorId = req.user.id;
+        const id = await insertHackathonService(req.body);
 
         res.status(200).send({
             status: 'ok',

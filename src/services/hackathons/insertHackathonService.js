@@ -11,7 +11,6 @@ const insertHackathonService = async ({
     endDate,
     topicName,
     technologyNames,
-    creatorId,
 }) => {
     const pool = await getPool();
 
@@ -25,8 +24,8 @@ const insertHackathonService = async ({
     const [result] = await pool.query(
         `
             INSERT INTO hackathons
-            (name, description, modality, location, onlineUrl, startDate, endDate, topicId, creatorId)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (name, description, modality, location, onlineUrl, startDate, endDate, topicId)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `,
         [
             name,
@@ -37,7 +36,6 @@ const insertHackathonService = async ({
             startDate,
             endDate,
             topicId,
-            creatorId
         ]
     );
 
