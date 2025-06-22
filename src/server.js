@@ -28,7 +28,7 @@ server.use(
     express.static(path.join(__dirname, 'uploads/avatar'))
 );
 
-const estaticDir = path.join(process.cwd(), '.src/uploads');
+const estaticDir = path.join(process.cwd(), 'src/uploads');
 server.use('/uploads', express.static(estaticDir));
 
 server.use(routes);

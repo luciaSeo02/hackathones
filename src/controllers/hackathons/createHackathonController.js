@@ -8,7 +8,7 @@ const createHackathonController = async (req, res, next) => {
         res.status(200).send({
             status: 'ok',
             message: 'Hackathon creado correctamente',
-            data: { id },
+            data: { id: id },
         });
     } catch (error) {
         next(error);

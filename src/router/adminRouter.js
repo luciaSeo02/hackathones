@@ -13,6 +13,7 @@ import deleteHackathonController from '../controllers/admin/deleteHackathonContr
 import editHackathonController from '../controllers/admin/editHackathonController.js';
 import attachmentAdminHackathonController from '../controllers/admin/attachmentAdminHackathonController.js';
 import deleteAttachmentController from '../controllers/admin/deleteAttachmentController.js';
+import toggleFavouriteHackathonController from '../controllers/admin/toggleFavouriteHackathonController.js';
 
 const router = express.Router();
 
@@ -40,7 +41,7 @@ router.post(
     '/hackathons/:id/attachments',
     authMiddleware,
     isAdminMiddleware,
-    validateBody(attachmentSchema),
+    // validateBody(attachmentSchema),
     attachmentAdminHackathonController
 );
 router.delete(
@@ -48,6 +49,13 @@ router.delete(
     authMiddleware,
     isAdminMiddleware,
     deleteAttachmentController
-)
+);
+
+router.put(
+    '/hackathons/:id/isFavourite',
+    authMiddleware,
+    isAdminMiddleware,
+    toggleFavouriteHackathonController
+);
 
 export default router;

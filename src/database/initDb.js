@@ -22,6 +22,8 @@ const initDb = async () => {
                     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
                     name VARCHAR(50) NOT NULL,
                     description TEXT,
+                    cover VARCHAR(255),
+                    coverType ENUM('image', 'video') DEFAULT 'image',
                     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
             `
@@ -68,6 +70,7 @@ const initDb = async () => {
                     onlineUrl VARCHAR(100),
                     startDate TIMESTAMP NOT NULL,
                     endDate TIMESTAMP NOT NULL,
+                    isFavourite BOOLEAN DEFAULT false,
                     topicId INT NOT NULL,
                     creatorId INT NOT NULL,
                     FOREIGN KEY (topicId) REFERENCES topics(id) ON DELETE CASCADE,
@@ -168,17 +171,17 @@ const initDb = async () => {
 
         await pool.query(
             `
-                INSERT INTO topics (name, description) VALUES
-                ('Inteligencia Artificial', 'Descripcion de Inteligencia Artificial'),
-                ('Desarrollador de Software', 'Descripcion de Desarrollador de Software'),
-                ('Desarrollo Web', 'Descripcion de Desarrollo Web'),
-                ('Data Science', 'Descripcion de Data Science'),
-                ('Ciberseguridad', 'Descripcion de Ciberseguridad'),
-                ('Realidad Virtual', 'Descripcion de Realidad Virtual'),
-                ('Robótica', 'Descripcion de Robótica'),
-                ('Hardware', 'Descripcion de Hardware'),
-                ('Gaming', 'Descripcion de Gaming'),
-                ('LAN Parties', 'Descripcion de LAN Parties');
+                INSERT INTO topics (name, description, cover, coverType) VALUES
+                ('Inteligencia Artificial', 'Explora retos centrados en el desarrollo de modelos inteligentes, automatización de procesos y soluciones basadas en datos.', '/topics/ai.mp4', 'video'),
+                ('Desarrollador de Software', 'Crea soluciones digitales desde cero: aplicaciones, herramientas y plataformas que resuelven problemas reales con código.', '/topics/software.jpg', 'image'),
+                ('Desarrollo Web', 'Construye sitios y aplicaciones web con enfoque en diseño, funcionalidad y experiencia de usuario para todos los dispositivos.', '/topics/web.jpg', 'image'),
+                ('Data Science', 'Transforma datos en conocimiento. Participa en retos que implican análisis, visualización y toma de decisiones basada en datos.', '/topics/dataScience.jpg', 'image'),
+                ('Ciberseguridad', 'Protege sistemas, redes y datos enfrentándote a retos de hacking ético, defensa digital y análisis de vulnerabilidades.', '/topics/cibersecurity.jpg', 'image'),
+                ('Realidad Virtual', 'Rompe la barrera entre lo físico y lo digital creando experiencias que se sienten tan reales como el mundo que te rodea.', '/topics/vr.jpg', 'image'),
+                ('Robótica', 'Diseña, programa y controla dispositivos físicos que interactúan con el mundo real mediante sensores, motores e inteligencia.', '/topics/robotic2.jpg', 'image'),
+                ('Hardware', 'Explora el lado físico de la tecnología: crea, modifica y optimiza dispositivos electrónicos desde sus componentes más básicos.', '/topics/hardware.jpg', 'image'),
+                ('Gaming', 'Crea experiencias interactivas, desarrolla mecánicas y da vida a mundos virtuales pensados para entretener, retar y conectar.', '/topics/gaming.jpg', 'image'),
+                ('LAN Parties', 'Eventos presenciales donde jugadores y desarrolladores se reúnen para competir, compartir y disfrutar del gaming en red local.', '/topics/LAN.jpg', 'image');
             `
         );
 
