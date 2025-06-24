@@ -4,6 +4,7 @@ import getHackathonByIdController from './getHackathonByIdController.js';
 import deleteHackathonController from '../admin/deleteHackathonController.js';
 import editHackathonController from '../admin/editHackathonController.js';
 import attachmentAdminHackathonController from '../admin/attachmentAdminHackathonController.js';
+import autoHackathonsController from './autoHackathonsController.js';
 
 export {
     createHackathonController,
@@ -12,4 +13,5 @@ export {
     deleteHackathonController,
     editHackathonController,
     attachmentAdminHackathonController,
+    autoHackathonsController,
 };
