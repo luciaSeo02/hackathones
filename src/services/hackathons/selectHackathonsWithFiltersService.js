@@ -1,6 +1,7 @@
 import getPool from '../../database/getPool.js';
 
 const selectHackathonsWithFiltersService = async ({
+    search, // <-- Añadido aquí
     topic,
     modality,
     startDate,
@@ -25,6 +26,13 @@ const selectHackathonsWithFiltersService = async ({
     if (isFavourite === 'true') {
         query += ` AND h.isFavourite = true AND h.endDate >= CURRENT_TIMESTAMP`;
     }
+
+    
+    if (search) {
+        query += ` AND (h.name LIKE ? OR t.name LIKE ?)`;
+        values.push(`%${search}%`, `%${search}%`);
+    }
+    
 
     if (topic) {
         query += ` AND t.name = ?`;

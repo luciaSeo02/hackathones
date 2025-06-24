@@ -5,6 +5,7 @@ import selectAttachmentsByHackathonIdService from '../../services/hackathons/sel
 const listHackathonsController = async (req, res, next) => {
     try {
         const {
+            search, 
             topic,
             modality,
             startDate,
@@ -15,6 +16,7 @@ const listHackathonsController = async (req, res, next) => {
         } = req.query;
 
         const hackathons = await selectHackathonsWithFiltersService({
+            search, 
             topic,
             modality,
             startDate,
