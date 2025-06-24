@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const editHackathonSchema = Joi.object({
     name: Joi.string().min(3).max(100),
-    description: Joi.string().min(10).max(500),
+    description: Joi.string().min(10).max(600),
     modality: Joi.string().valid('online', 'onsite'),
     location: Joi.string().min(3).max(100).allow('', null),
     onlineUrl: Joi.string().min(10).max(100).uri().allow('', null),

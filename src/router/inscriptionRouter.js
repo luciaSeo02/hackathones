@@ -13,8 +13,11 @@ import isAdminMiddleware from '../middlewares/authAdminMiddleware.js';
 import validateBody from '../middlewares/validateBody.js';
 import publishRankingSchema from '../validators/publishRankingSchema.js';
 import rateHackathonSchema from '../validators/rateHackathonSchema.js';
-import getClassification from '../services/inscriptions/getClassification.js'
+
 import getParticipantsByHackathonIdController from '../controllers/inscriptions/getParticipantsByHackathonIdController.js';
+import getClassification from '../services/inscriptions/getClassification.js';
+import getUserRatingController from '../controllers/inscriptions/getUserRatingController.js';
+
 
 const router = express.Router();
 
@@ -47,13 +50,19 @@ router.post(
     rateHackathon
 );
 
+router.get(
+    '/hackathons/:hackathonId/rating',
+    authMiddleware,
+    getUserRatingController
+);
+
 router.get('/hackathons/:hackathonId/classification/view', getClassification);
 
 router.get(
-  '/inscriptions-to-my-hackathons',
-  authMiddleware,
-  isAdminMiddleware,
-  getPeopleInscriptionsToMyHackathonsController
+    '/inscriptions-to-my-hackathons',
+    authMiddleware,
+    isAdminMiddleware,
+    getPeopleInscriptionsToMyHackathonsController
 );
 
 router.get(
@@ -64,5 +73,3 @@ router.get(
 );
 
 export default router;
-
-

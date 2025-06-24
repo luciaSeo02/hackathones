@@ -7,10 +7,10 @@ const hackathonSchema = Joi.object({
         'string.max': 'El nombre no puede superar los 100 caracteres',
     }),
 
-    description: Joi.string().min(10).max(500).required().messages({
+    description: Joi.string().min(10).max(600).required().messages({
         'string.empty': 'La descripción es obligatoria',
         'string.min': 'La descripción debe tener al menos 10 caracteres',
-        'string.max': 'La descripción no puede superar los 500 caracteres',
+        'string.max': 'La descripción no puede superar los 600 caracteres',
     }),
 
     modality: Joi.string().valid('online', 'onsite').required().messages({
@@ -84,7 +84,7 @@ export default hackathonSchema;
 
 // Esquema que valida los datos de un hackathon, asegurando que:
 // - Un nombre tenga entre 3 y 100 caracteres.
-// - La descripción tenga entre 10 y 500 caracteres.
+// - La descripción tenga entre 10 y 600 caracteres.
 // - La modalidad sea 'online' o 'onsite'.
 // - La ubicación y la URL online sean opcionales.
 // - Las fechas de inicio y fin sean válidas y la fecha de fin sea posterior a la de inicio.
