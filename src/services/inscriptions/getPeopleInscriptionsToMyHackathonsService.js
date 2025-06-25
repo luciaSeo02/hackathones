@@ -1,22 +1,36 @@
 import getPool from '../../database/getPool.js';
 
-const getPeopleInscriptionsToMyHackathonsService = async (userId) => {
+const getPeopleInscriptionsToMyHackathonsService = async (
+    userId,
+    limit = 24,
+    page = 1
+) => {
     if (!userId) {
         throw new Error('Falta el ID de usuario');
     }
 
     const pool = await getPool();
 
-
     const [myHackathons] = await pool.query(
         'SELECT id FROM hackathons WHERE creatorId = ?',
         [userId]
     );
-    const hackathonIds = myHackathons.map(h => h.id);
+    const hackathonIds = myHackathons.map((h) => h.id);
     if (hackathonIds.length === 0) {
-        return [];
+        return { inscriptions: [], total: 0 };
     }
 
+    const [totalRows] = await pool.query(
+        `SELECT COUNT(*) as total
+        FROM hackathon_user_registrations i
+        JOIN users u ON i.userId = u.id
+        JOIN hackathons h ON i.hackathonId = h.id
+        WHERE i.hackathonId IN (?)`,
+        [hackathonIds]
+    );
+    const total = totalRows[0]?.total || 0;
+
+    const offset = (Number(page) - 1) * Number(limit);
 
     const [inscriptions] = await pool.query(
         `SELECT 
@@ -35,11 +49,13 @@ const getPeopleInscriptionsToMyHackathonsService = async (userId) => {
         JOIN users u ON i.userId = u.id
         JOIN hackathons h ON i.hackathonId = h.id
         WHERE i.hackathonId IN (?)
+        ORDER BY h.startDate DESC
+        LIMIT ? OFFSET ?
         `,
-        [hackathonIds]
+        [hackathonIds, Number(limit), offset]
     );
 
-    return inscriptions;
+    return { inscriptions, total };
 };
 
 export default getPeopleInscriptionsToMyHackathonsService;

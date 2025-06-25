@@ -5,8 +5,13 @@ import { HOST, PORT } from '../../../env.js';
 const listInscriptionUser = async (req, res, next) => {
     try {
         const userId = req.user.id;
+        const { limit = 24, page = 1 } = req.query;
 
-        const inscriptions = await getInscriptionUser(userId);
+        const { inscriptions, total } = await getInscriptionUser(
+            userId,
+            limit,
+            page
+        );
 
         for (const hackathon of inscriptions) {
             const attachments = await selectAttachmentsByHackathonIdService(
@@ -19,9 +24,10 @@ const listInscriptionUser = async (req, res, next) => {
             }));
         }
 
-        console.log(inscriptions);
-
-        res.status(200).json({ inscriptions });
+        res.status(200).json({
+            inscriptions,
+            total,
+        });
     } catch (error) {
         console.error('Error en listInscriptionUser:', error);
         next(error);
