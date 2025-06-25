@@ -7,9 +7,18 @@ const getPeopleInscriptionsToMyHackathonsController = async (
 ) => {
     try {
         const { id: userId } = req.user;
-        const inscriptions =
-            await getPeopleInscriptionsToMyHackathonsService(userId);
-        res.json({ inscriptions });
+        const { limit = 24, page = 1 } = req.query;
+
+        const { inscriptions, total } =
+            await getPeopleInscriptionsToMyHackathonsService(
+                userId,
+                limit,
+                page
+            );
+        res.json({
+            inscriptions,
+            total,
+        });
     } catch (err) {
         next(err);
     }
