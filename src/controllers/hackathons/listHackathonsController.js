@@ -13,9 +13,12 @@ const listHackathonsController = async (req, res, next) => {
             technologies,
             orderBy,
             isFavourite,
+            limit = 24,
+            page = 1,
         } = req.query;
 
-        const hackathons = await selectHackathonsWithFiltersService({
+        //Servicio listar hackathones con filtros
+        const { hackathons, total } = await selectHackathonsWithFiltersService({
             search, 
             topic,
             modality,
@@ -24,6 +27,8 @@ const listHackathonsController = async (req, res, next) => {
             technologies,
             orderBy,
             isFavourite,
+            limit: Number(limit),
+            page: Number(page),
         });
 
         for (const hackathon of hackathons) {
@@ -49,6 +54,7 @@ const listHackathonsController = async (req, res, next) => {
         res.status(200).json({
             status: 'ok',
             data: hackathons,
+            total,
         });
     } catch (error) {
         next(error);
