@@ -19,7 +19,7 @@ const editAvatarController = async (req, res, next) => {
 
         if (user.avatar) await deletePhotoUtils(user.avatar);
 
-        const avatarName = await savePhotoUtils(avatarFile, 100);
+        const avatarName = await savePhotoUtils(avatarFile, 240);
 
         await updateUserAvatarService(avatarName, req.user.id);
 
