@@ -9,7 +9,7 @@ const selectHackathonByIdService = async (id) => {
         `
             SELECT
             h.id, h.name, h.description, h.modality, h.location, h.onlineUrl, 
-            h.startDate, h.endDate, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technolyNames
+            h.startDate, h.endDate, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technologyNames
             FROM hackathons h
             JOIN topics t ON h.topicId = t.id
             LEFT JOIN hackathon_technologies ht ON ht.hackathonId = h.id
