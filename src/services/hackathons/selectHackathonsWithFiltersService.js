@@ -8,6 +8,7 @@ const selectHackathonsWithFiltersService = async ({
     endDate,
     technologies,
     orderBy,
+    orderDirection = 'desc',
     isFavourite,
     limit = 24,
     page = 1,
@@ -60,7 +61,6 @@ const selectHackathonsWithFiltersService = async ({
         values.push(...techArray);
     }
 
-
     const [totalRows] = await pool.query(
         `
         SELECT COUNT(DISTINCT h.id) as total
@@ -70,19 +70,23 @@ const selectHackathonsWithFiltersService = async ({
     );
     const total = totalRows[0]?.total || 0;
 
-    
     let query = `
-        SELECT DISTINCT h.id, h.name, h.description, h.isFavourite, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technologies
+        SELECT DISTINCT h.id, h.name, h.description, h.isFavourite, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, h.createdAt, t.name AS topic, GROUP_CONCAT(DISTINCT tech.name) AS technologies
         ${baseQuery}
-        GROUP BY h.id, h.name, h.description, h.isFavourite, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, t.name
+        GROUP BY h.id, h.name, h.description, h.isFavourite, h.modality, h.location, h.onlineUrl, h.startDate, h.endDate, h.createdAt, t.name
     `;
 
-    if (orderBy === 'startDate' || orderBy === 'topic') {
-        query += ` ORDER BY ${orderBy} ASC`;
+    const validOrderByFields = ['startDate', 'createdAt'];
+    const validOrderDirections = ['asc', 'desc'];
+
+    if (
+        validOrderByFields.includes(orderBy) &&
+        validOrderDirections.includes(orderDirection.toLowerCase())
+    ) {
+        query += ` ORDER BY ${orderBy} ${orderDirection.toUpperCase()}`;
     } else {
         query += ` ORDER BY h.startDate DESC`;
     }
-
 
     const offset = (Number(page) - 1) * Number(limit);
     query += ` LIMIT ? OFFSET ?`;

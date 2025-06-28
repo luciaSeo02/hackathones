@@ -5,13 +5,14 @@ import selectAttachmentsByHackathonIdService from '../../services/hackathons/sel
 const listHackathonsController = async (req, res, next) => {
     try {
         const {
-            search, 
+            search,
             topic,
             modality,
             startDate,
             endDate,
             technologies,
             orderBy,
+            orderDirection = 'desc',
             isFavourite,
             limit = 24,
             page = 1,
@@ -19,7 +20,7 @@ const listHackathonsController = async (req, res, next) => {
 
         //Servicio listar hackathones con filtros
         const { hackathons, total } = await selectHackathonsWithFiltersService({
-            search, 
+            search,
             topic,
             modality,
             startDate,
@@ -27,6 +28,7 @@ const listHackathonsController = async (req, res, next) => {
             technologies,
             orderBy,
             isFavourite,
+            orderDirection,
             limit: Number(limit),
             page: Number(page),
         });
