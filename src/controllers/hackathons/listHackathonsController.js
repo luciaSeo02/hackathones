@@ -14,6 +14,7 @@ const listHackathonsController = async (req, res, next) => {
             orderBy,
             orderDirection = 'desc',
             isFavourite,
+            activeOnly,
             limit = 24,
             page = 1,
         } = req.query;
@@ -28,6 +29,7 @@ const listHackathonsController = async (req, res, next) => {
             technologies,
             orderBy,
             isFavourite,
+            activeOnly,
             orderDirection,
             limit: Number(limit),
             page: Number(page),

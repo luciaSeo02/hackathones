@@ -10,6 +10,7 @@ const selectHackathonsWithFiltersService = async ({
     orderBy,
     orderDirection = 'desc',
     isFavourite,
+    activeOnly,
     limit = 24,
     page = 1,
 }) => {
@@ -26,7 +27,11 @@ const selectHackathonsWithFiltersService = async ({
     const values = [];
 
     if (isFavourite === 'true') {
-        baseQuery += ` AND h.isFavourite = true AND h.endDate >= CURRENT_TIMESTAMP`;
+        baseQuery += ` AND h.isFavourite = true`;
+    }
+
+    if (activeOnly === 'true') {
+        baseQuery += ` AND h.endDate >= CURRENT_TIMESTAMP`;
     }
 
     if (search) {
