@@ -18,7 +18,6 @@ import getParticipantsByHackathonIdController from '../controllers/inscriptions/
 import getClassification from '../services/inscriptions/getClassification.js';
 import getUserRatingController from '../controllers/inscriptions/getUserRatingController.js';
 
-
 const router = express.Router();
 
 router.post(
@@ -66,10 +65,10 @@ router.get(
 );
 
 router.get(
-  '/hackathons/:hackathonId/participants',
-  authMiddleware,
-  isAdminMiddleware,
-  getParticipantsByHackathonIdController
+    '/hackathons/:hackathonId/participants',
+    authMiddleware,
+    isAdminMiddleware,
+    getParticipantsByHackathonIdController
 );
 
 export default router;

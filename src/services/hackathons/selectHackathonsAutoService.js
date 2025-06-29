@@ -17,9 +17,21 @@ const selectHackathonsAutoService = async ({
         JOIN topics t ON h.topicId = t.id
         LEFT JOIN hackathon_technologies ht ON ht.hackathonId = h.id
         LEFT JOIN technologies tech ON tech.id = ht.technologyId
-        WHERE (h.name LIKE ? OR t.name LIKE ?)
+        WHERE (h.name LIKE ? OR t.name LIKE ? OR h.description LIKE ?
     `;
-    const values = [`%${query}%`, `%${query}%`];
+    const values = [`%${query}%`, `%${query}%`, `%${query}%`];
+
+    // Si la consulta es un número, agregar búsqueda exacta por ID
+    const isNumeric = /^\d+$/.test(query.trim());
+    if (isNumeric) {
+        sql += ` OR h.id = ?`;
+        values.push(parseInt(query.trim()));
+    } else {
+        sql += ` OR CAST(h.id AS CHAR) LIKE ?`;
+        values.push(`%${query}%`);
+    }
+
+    sql += `)`;
 
     if (topic) {
         sql += ' AND t.name = ?';
@@ -77,14 +89,17 @@ const selectHackathonsAutoService = async ({
     const [hackathonRows] = await pool.query(sql, values);
     const [topicRows] = await pool.query(sqlTopics, topicValues);
     const [modalityRows] = await pool.query(sqlModalities, modalityValues);
-    const [technologyRows] = await pool.query(sqlTechnologies, technologyValues);
+    const [technologyRows] = await pool.query(
+        sqlTechnologies,
+        technologyValues
+    );
 
     // Combina y elimina duplicados
     const suggestionsSet = new Set([
-        ...hackathonRows.map(r => r.suggestion),
-        ...topicRows.map(r => r.suggestion),
-        ...modalityRows.map(r => r.suggestion),
-        ...technologyRows.map(r => r.suggestion),
+        ...hackathonRows.map((r) => r.suggestion),
+        ...topicRows.map((r) => r.suggestion),
+        ...modalityRows.map((r) => r.suggestion),
+        ...technologyRows.map((r) => r.suggestion),
     ]);
     return Array.from(suggestionsSet).filter(Boolean);
 };

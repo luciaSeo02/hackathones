@@ -35,8 +35,15 @@ const selectHackathonsWithFiltersService = async ({
     }
 
     if (search) {
-        baseQuery += ` AND (h.name LIKE ? OR t.name LIKE ?)`;
-        values.push(`%${search}%`, `%${search}%`);
+        // Verificar si la búsqueda es un número (ID)
+        const isNumeric = /^\d+$/.test(search.trim());
+        if (isNumeric) {
+            baseQuery += ` AND h.id = ?`;
+            values.push(parseInt(search.trim()));
+        } else {
+            baseQuery += ` AND (h.name LIKE ? OR t.name LIKE ? OR h.description LIKE ?)`;
+            values.push(`%${search}%`, `%${search}%`, `%${search}%`);
+        }
     }
 
     if (topic) {
