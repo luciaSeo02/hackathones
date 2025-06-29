@@ -4,7 +4,7 @@ const selectAttachmentsByHackathonIdService = async (hackathonId) => {
     const pool = await getPool();
 
     const [rows] = await pool.query(
-        `SELECT fileUrl, fileType FROM hackathon_attachments WHERE hackathonId = ?`,
+        `SELECT id, fileUrl, fileType FROM hackathon_attachments WHERE hackathonId = ?`,
         [hackathonId]
     );
 

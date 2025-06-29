@@ -25,6 +25,7 @@ const selectHackathonByIdService = async (id) => {
 
     const attachments = await selectAttachmentsByHackathonIdService(id);
     hackathon.attachments = attachments.map((file) => ({
+        id: file.id,
         url: `${HOST}:${PORT}/${file.fileUrl}`,
         type: file.fileType,
     }));

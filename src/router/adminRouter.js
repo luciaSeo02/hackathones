@@ -45,7 +45,7 @@ router.post(
     attachmentAdminHackathonController
 );
 router.delete(
-    '/hackathons/:id/attachments/:fileId',
+    '/hackathons/:id/files/:fileId',
     authMiddleware,
     isAdminMiddleware,
     deleteAttachmentController
